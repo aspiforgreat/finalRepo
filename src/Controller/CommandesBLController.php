@@ -227,7 +227,6 @@ class CommandesBLController
        // empty($data['creationDate']) ? true : $commandesBL->setCreationDate($data['creationDate']);
        //// empty($data['dueDate']) ? true : $commandesBL->setDueDate($data['dueDate']);
 
-
     //    if( !empty($data['matricule'])) {
         $profil = $this->profilRepository->findOneBy(['matricule' => $data['matricule']]);
         $livreur = $this->livreurRepository->findOneBy(['matricule' => $profil->getId()]);
@@ -295,10 +294,16 @@ class CommandesBLController
         $matricule =  $request->query->get('matricule');
 
         $profil = $this->profilRepository->findOneBy(['matricule' => $matricule]);
+
+        if($profil == null ){
+            $data = [];
+            return new JsonResponse($data,Response::HTTP_OK);
+        }
+
         $livreur2 = $this->livreurRepository->findOneBy(['matricule' => $profil->getId()]);
         $commandesBLS = $this->commandesBLRepository -> findBy(['etat'=> $etat, 'livreur'=> $livreur2->getId()]);
              
-       if($commandesBLS == null|| $profil == null || $livreur2 == null){
+       if($commandesBLS == null|| $livreur2 == null){
            $data = [];
             return new JsonResponse($data,Response::HTTP_OK);
        }

@@ -26,7 +26,7 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
         $faker = Factory::create();
          // use this to populate the database
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 0; $i++) {
             $administrateurs = new Administrateurs($faker->firstName,
                 $faker->lastName,$faker->name,$faker->numberBetween(10000,999999));
             $manager->persist($administrateurs);
